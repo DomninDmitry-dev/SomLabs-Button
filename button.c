@@ -65,8 +65,12 @@ static int btn_probe(struct platform_device *pdev)
         dev_info(&pdev->dev, "irq = %d\n", btn->irq);
         retval = devm_request_threaded_irq(&pdev->dev, btn->irq, NULL,\
         								btn_irq, \
-										IRQF_TRIGGER_FALLING | IRQF_ONESHOT, \
+									IRQF_TRIGGER_FALLING | IRQF_ONESHOT, \
                                         "my-button", btn);
+	if(retval < 0) {
+		dev_err(&pdev->dev, "Error IRQ - %d\n", retval);
+		return retval;
+	}
         btn->pdev = pdev;
         platform_set_drvdata(pdev, btn);
         return 0;
