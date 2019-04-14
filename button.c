@@ -20,17 +20,11 @@ struct button {
 };
 
 /*----------------------------------------------------------------------------*/
-//static inline struct button *to_btn(struct platform_device *pd)
-//{
-//	return container_of(pd, struct button, pdev);
-//}
-/*----------------------------------------------------------------------------*/
 static irqreturn_t btn_irq(int irq, void *data)
 {
 	struct button *btn = data;
 	int state = gpiod_get_value(btn->but);
-	//if(state == 0)
-	dev_info(&btn->pdev->dev, "BTN: IRQ: ************************************************ %d\n", state);
+	dev_info(&btn->pdev->dev, "IRQ: %d\n", state);
 
 	return (irqreturn_t)IRQ_HANDLED;
 }

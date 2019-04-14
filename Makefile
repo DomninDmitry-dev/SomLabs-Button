@@ -20,15 +20,15 @@ REMFLAGS = -g -O0
 obj-m   := $(TARGET_MOD).o
 CFLAGS_$(TARGET_MOD).o := -DDEBUG
 
-comp_som:
+compile_som:
 	@echo "Compiling on SomLabs"
 	$(MAKE) $(CCFLAGS) $(KDIR_SOM) M=$(PWD) modules CFLAGS_MODULE=-fno-pic
-comp_host:
+all:
 	@echo "Compiling on Host"
 	$(MAKE) $(CCFLAGS) $(KDIR_HOST) M=$(PWD) ARCH=$(ARCH) CROSS_COMPILE=$(COMPILER) modules
 dtb_som:
 	./compile.sh
-copy_som:
+modcopy_som:
 	@echo "Copy my driver to ../gpio"
 	@cp /home/dmitry/modules/SomLabs-Button/button.ko /lib/modules/4.1.15/kernel/drivers/gpio/
 compile_dtb:
